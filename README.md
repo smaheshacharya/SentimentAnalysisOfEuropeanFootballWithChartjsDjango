@@ -11,6 +11,7 @@ I make this project using DjangoFrameWork
 * pip install BeautifulSoup
 * pip install TextBlob
 * pip install  requests
+* set up chart.js
 
 # Data from
 [Click :](https://www.football365.com/)
