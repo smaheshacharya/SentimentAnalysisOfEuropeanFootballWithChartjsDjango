@@ -1,0 +1,203 @@
+{%extends 'base/base.html'%}
+
+
+<script type="text/javascript">
+
+
+{%block jquery%}
+
+//var endpoint = '/api/chart/data/' //for api data which is it;s url
+var endpoint = '/api/data/'
+var default_data = []
+var labels = []
+$.ajax({
+  method : "GET",
+  url : endpoint,
+  success:function(data){
+    labels = data.labels
+    default_data = data.default
+    setChart()
+  },
+  error:function(error_data){
+    console.log("error")
+    console.log("error_data")
+  }
+
+  })
+  function setChart()
+  {
+    var ctx = document.getElementById('myChart').getContext('2d');
+      var ctx1 = document.getElementById('myChart1').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '# of Votes',
+                data: default_data,
+
+
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    var myChart1 = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '# of Votes',
+                data: default_data,
+
+
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+  }
+  // var ctx = document.getElementById('myChart').getContext('2d');
+  // var myChart = new Chart(ctx, {
+  //     type: 'bar',
+  //     data: {
+  //         labels: labels,
+  //         datasets: [{
+  //             label: '# of Votes',
+  //             data: default_data,
+  //
+  //
+  //             backgroundColor: [
+  //                 'rgba(255, 99, 132, 0.2)',
+  //                 'rgba(54, 162, 235, 0.2)',
+  //                 'rgba(255, 206, 86, 0.2)',
+  //                 'rgba(75, 192, 192, 0.2)',
+  //                 'rgba(153, 102, 255, 0.2)',
+  //                 'rgba(255, 159, 64, 0.2)'
+  //             ],
+  //             borderColor: [
+  //                 'rgba(255, 99, 132, 1)',
+  //                 'rgba(54, 162, 235, 1)',
+  //                 'rgba(255, 206, 86, 1)',
+  //                 'rgba(75, 192, 192, 1)',
+  //                 'rgba(153, 102, 255, 1)',
+  //                 'rgba(255, 159, 64, 1)'
+  //             ],
+  //             borderWidth: 1
+  //         }]
+  //     },
+  //     options: {
+  //         scales: {
+  //             yAxes: [{
+  //                 ticks: {
+  //                     beginAtZero: true
+  //                 }
+  //             }]
+  //         }
+  //     }
+  // });
+
+
+
+
+{%endblock%}
+</script>
+  {% block content %}
+{% load static%}
+  <body>
+    <div class="container">
+      <div class="row">
+<h2 style="text-align:center; color:red; opacity:.7;">Sentiment Analysis of European Football :)</h4>
+      </div>
+
+    </div>
+    <div class="container">
+      <div class="row">
+<h3 style="text-align:center; color:blue; opacity:.7;">https://www.football365.com/</h3>
+      </div>
+
+    </div>
+    <div class="container">
+      <div class="row">
+<hr>      </div>
+
+    </div>
+    <div class="container">
+      <div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-12">
+<img style="width:100px;height:auto; align-items:center;" src="{% static 'img/messi.jpeg' %}" alt="Messi">
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-12">
+    <img style="width:100px;height:auto; align-items:center; float:right;" src="{% static 'img/ronaldo.jpeg' %}" alt="C Ronaldo">
+
+  </div>
+      </div>
+
+    </div>
+    <hr>
+  <div class="container">
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-xs-6">
+  <canvas id="myChart" width="200" height="200"></canvas>
+
+</div>
+<div class="col-md-6 col-sm-6 col-xs-6">
+  <canvas id="myChart1" width="200" height="200"></canvas>
+
+</div>
+    </div>
+
+  </div>
+
+</body>
+
+{%endblock%}
